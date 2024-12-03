@@ -1,9 +1,12 @@
 # Voice Detector
 
 <p align="center">
-  <img src="pics/vad-fig2.png" alt="VAD Model Diagram">
   <img src="pics/result.png" alt="Results of model output">
 </p>
+
+| Accuracy | Precision | Recall | F1 Score |
+|----------|-----------|--------|----------|
+|  0.9550  |  0.9615   | 0.9444 |  0.9529  |
 
 Thing's need to change before run the command below
 - You got annotation .csv files for each audio 
@@ -59,11 +62,6 @@ data/
         5ed8a1c0f3ea2.flac
         5ed8a1c0f3ea2.csv
 ```
-
-#### Metrics
-| Accuracy | Precision | Recall | F1 Score |
-|----------|-----------|--------|----------|
-|  0.9550  |  0.9615   | 0.9444 |  0.9529  |
 
 Used GPU: `NVIDIA GeForce RTX 4090`  
 Number of GPUs: `1`  
