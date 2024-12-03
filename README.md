@@ -6,9 +6,9 @@
 </p>
 
 Thing's need to change before run the command below
-1. You got annotation .csv files for each audio 
-2. Audio files in any format that can be processed by `librosa` library.
-3. Audio file names must match with annotation .csv files.
+- You got annotation .csv files for each audio 
+- Audio files in any format that can be processed by `librosa` library.
+- Audio file names must match with annotation .csv files.
 
 Before run train and inference, setup vertiual env.
 ```
@@ -60,6 +60,6 @@ data/
         5ed8a1c0f3ea2.csv
 ```
 
-Used GPU: `NVIDIA GeForce RTX 4090`  
-Number of GPUs: `1`
-CUDA version: `cu118`
+- Used GPU: `NVIDIA GeForce RTX 4090`  
+- Number of GPUs: `1`
+- CUDA version: `cu118`
