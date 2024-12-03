@@ -55,4 +55,4 @@ def metadata_info (model, dtype = 'float32') -> None:
         raise ValueError(f"Unsupported dtype '{dtype}'. Supported dtypes are 'float32', 'float16', 'bfloat16', and 'int8'.")
     
     print(f"Trainable parametrs: {num_params}")
-    print("Size of model is: {:.2f} MB".format(model_size))
+    print("Size of model is: {:.2f} MB, in {}".format(model_size, dtype))
