@@ -65,6 +65,10 @@ data/
 |----------|-----------|--------|----------|
 |  0.9550  |  0.9615   | 0.9444 |  0.9529  |
 
-- Used GPU: `NVIDIA GeForce RTX 4090`  
-- Number of GPUs: `1`
-- CUDA version: `cu118`
+Used GPU:   
+  `NVIDIA GeForce RTX 4090`  
+Number of GPUs:   
+  `1`  
+CUDA version:   
+  `cu118`
+
