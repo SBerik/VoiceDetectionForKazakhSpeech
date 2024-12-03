@@ -2,7 +2,7 @@
 
 Voice detection for kazakh speech
 <p align="center">
-  <img src="pics/result.png" alt="Results of model output">
+  <img src="pics/result.png" alt="Results of model output" width="60%" />
 </p>
 
 ## Overview
