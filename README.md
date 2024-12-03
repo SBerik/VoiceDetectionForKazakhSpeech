@@ -60,6 +60,13 @@ data/
         5ed8a1c0f3ea2.csv
 ```
 
+|    Metrics     | Value  |
+|----------------|--------|
+|    Accuracy    | 0.9550 |
+|    Precision   | 0.9615 |
+|    Recall      | 0.9444 |
+|    F1 Score    | 0.9529 |
+
 - Used GPU: `NVIDIA GeForce RTX 4090`  
 - Number of GPUs: `1`
 - CUDA version: `cu118`
