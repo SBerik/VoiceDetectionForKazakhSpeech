@@ -1,4 +1,4 @@
-## Voice Detector
+# Voice Detector
 
 <p align="center">
   <img src="pics/vad-fig2.png" alt="VAD Model Diagram">
@@ -60,6 +60,7 @@ data/
         5ed8a1c0f3ea2.csv
 ```
 
+#### Metrics
 | Accuracy | Precision | Recall | F1 Score |
 |----------|-----------|--------|----------|
 |  0.9550  |  0.9615   | 0.9444 |  0.9529  |
