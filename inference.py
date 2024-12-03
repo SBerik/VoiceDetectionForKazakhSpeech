@@ -15,7 +15,7 @@ class VADPredictor(object):
         self.cfg = yaml.load(open(os.path.join(ckpt_folder, 'hparams.yml')), Loader=yaml.FullLoader)
         self.weight_folder = weight_folder
         self.device = device
-        self.model = self.load_model(weight_folder)
+        self.__model = self.load_model(weight_folder)
         self.EPS = 1e-8
 
     def load_model(self, weight_folder):
@@ -40,7 +40,7 @@ class VADPredictor(object):
     def predict(self, audio_path, threshold=None):
         mel = self.get_mel_spec(audio_path)
         with th.no_grad():
-            probs = th.sigmoid(self.model.forward(mel.unsqueeze(0)))
+            probs = th.sigmoid(self.__model.forward(mel.unsqueeze(0)))
             probs = probs[0, :, 0].cpu().numpy()
         
         if threshold is not None:
@@ -49,6 +49,9 @@ class VADPredictor(object):
 
         return probs
 
+    def get_model(self):
+        return self.__model
+    
     def plot_result(self, audio_path, threshold=None, save = False, save_dir="pics", filename="result.png") -> None:
         mel = self.get_mel_spec(audio_path)
         probs = self.predict(audio_path, threshold)
