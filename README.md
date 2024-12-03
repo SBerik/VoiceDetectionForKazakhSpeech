@@ -1,12 +1,21 @@
 # Voice Detector
 
+Voice detection for kazakh speech
 <p align="center">
   <img src="pics/result.png" alt="Results of model output">
 </p>
 
-<!-- | Accuracy | Precision | Recall | F1 Score |
+## Overview
+<p align="center">
+  <img src="pics/vad-fig2.png" alt="Results of model output">
+</p>
+
+## Metrics
+| Accuracy | Precision | Recall | F1 Score |
 |----------|-----------|--------|----------|
-|  0.9550  |  0.9615   | 0.9444 |  0.9529  | -->
+|  0.9550  |  0.9615   | 0.9444 |  0.9529  | 
+
+## Setup
 Thing's need to change before run the command below
 - You got annotation .csv files for each audio 
 - Audio files in any format that can be processed by `librosa` library.
@@ -41,6 +50,10 @@ python inference.py PATH_TO_SAMPLE -plot -s -t THRESHOLD -c checkpoints/NAME_OF_
 ```
 Warning: run the file `inference.py` with the trained model weights and the config file. 
 
+Used GPU: `NVIDIA GeForce RTX 4090`  
+Number of GPUs: `1`  
+CUDA version: `cu118`
+
 Scheme of data folder:
 ```
 data/
@@ -61,8 +74,3 @@ data/
         5ed8a1c0f3ea2.flac
         5ed8a1c0f3ea2.csv
 ```
-
-Used GPU: `NVIDIA GeForce RTX 4090`  
-Number of GPUs: `1`  
-CUDA version: `cu118`
-
