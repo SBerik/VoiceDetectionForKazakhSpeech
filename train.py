@@ -39,7 +39,6 @@ def main(hparams_file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    # python train.py -p ./configs/32_n_frames.yml
-    parser.add_argument("-p", "--hparams", type=str, help="hparams config file")
+    parser.add_argument("-p", "--hparams", type=str, default="./configs/32_n_frames.yml", help="hparams config file")
     args = parser.parse_args()
     main(args.hparams)
