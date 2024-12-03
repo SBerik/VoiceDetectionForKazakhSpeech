@@ -59,3 +59,7 @@ data/
         5ed8a1c0f3ea2.flac
         5ed8a1c0f3ea2.csv
 ```
+
+Used GPU: `NVIDIA GeForce RTX 4090`  
+Number of GPUs: `1`
+CUDA version: `cu118`
