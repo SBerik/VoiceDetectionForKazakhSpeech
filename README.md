@@ -4,10 +4,9 @@
   <img src="pics/result.png" alt="Results of model output">
 </p>
 
-| Accuracy | Precision | Recall | F1 Score |
+<!-- | Accuracy | Precision | Recall | F1 Score |
 |----------|-----------|--------|----------|
-|  0.9550  |  0.9615   | 0.9444 |  0.9529  |
-
+|  0.9550  |  0.9615   | 0.9444 |  0.9529  | -->
 Thing's need to change before run the command below
 - You got annotation .csv files for each audio 
 - Audio files in any format that can be processed by `librosa` library.
