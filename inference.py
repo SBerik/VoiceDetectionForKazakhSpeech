@@ -75,12 +75,9 @@ class VADPredictor(object):
         plt.show() 
     
 
-if __name__ == "__main__":
-
-    # python inference.py data/samples/5ed8a1c0f3ea2.flac -plot -s -t 0.87 -c checkpoints/32_n_frames -w weights/VADNet_13_0.1502_0.9506.pt
-    
+if __name__ == "__main__": 
     parser = argparse.ArgumentParser()
-    parser.add_argument('input_file', type=str, help='path to file to predict VAD')
+    parser.add_argument('input_file', default='data/samples/5ed8a1c0f3ea2.flac', type=str, help='path to file to predict VAD')
     parser.add_argument('-plot', '--plot_result', action='store_true', default=False, help='Plot spectrogram and model predictions')
     parser.add_argument('-s', '--save_result', action='store_true', default=False, help='Save spectogram and model predections')
     parser.add_argument('-t', '--threshold', type=float, default=None, help='threshold value')
