@@ -1,0 +1,40 @@
+data:
+  batch_size: 512
+  data_dir: F:/ISSAI_KSC2_unpacked/temp_vad
+  hop_length: 512
+  n_frames: 32
+  n_mels: 128
+  n_workers: 6
+  nfft: 1048
+  norm: false
+  pin_memory: true
+  seed: 42
+  sr: 16000
+  test_percent: 0.1
+  train_percent: 0.8
+  valid_percent: 0.1
+model:
+  cnn_channels: 32
+  dff: 512
+  embed_dim: 256
+  n_feat: 128
+  num_heads: 16
+model_checkpoint:
+  filename: VAD-{epoch:02d}
+  monitor: val_loss
+  save_last: true
+trainer:
+  best_weights: true
+  checkpoint_interval: 5
+  checkpointing: false
+  device: cuda
+  model_name: VADNet
+  num_epochs: 100
+  path_to_weights: ./weights
+training:
+  lr: 0.001
+  optim: Adam
+  weight_decay: 1.0e-05
+xp_config:
+  dataset: ISSAI_KSC2
+  model_type: VAD
