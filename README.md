@@ -12,7 +12,7 @@ Thing's need to change before run the command below
 
 Before run train and inference, setup vertiual env.
 ```
-mkdir VD-KazakhSpeech
+mkdir VoiceDetectionForKazakhSpeech
 python3 -m venv .venv 
 ```
 For Linux (Ubuntu):
