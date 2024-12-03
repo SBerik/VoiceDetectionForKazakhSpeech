@@ -5,7 +5,7 @@
 </p>
 
 ## Overview
-Voice Detector for based on self-attention. 
+Voice Detector Model based on self-attention. 
 <p align="center">
   <img src="pics/vad-fig2.png" alt="Results of model output">
 </p>
