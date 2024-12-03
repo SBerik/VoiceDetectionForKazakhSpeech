@@ -1,0 +1,14 @@
+__pycache__/
+.ipynb_checkpoints/
+
+data/annotation/
+data/Data_INFO/
+data/KSC2/
+
+.venv/
+
+tb_logs/
+
+checkpoints/
+
+weights/
