@@ -42,13 +42,13 @@ def getLabel(d, time_frame, reversed_labels = False):
         
     return labels
 
-def __savingLableInJson(audio_path, labeled_audio, base_path = 'C:/Users/b.smadiarov/Diploma/VD-KazakhSpeech/data/annotation/'):
+def __savingLableInJson(audio_path, labeled_audio, base_path = 'C:/Users/b.smadiarov/Diploma/VoiceDetectionForKazakhSpeech/data/annotation/'):
     new_json_annotated_f = base_path + re.sub(r'.*ISSAI_KSC2', 'Json', audio_path)
     new_json_annotated_f = new_json_annotated_f.replace('.flac', '.json')
     with open(new_json_annotated_f, 'w') as f:
         json.dump({"speech_segments": labeled_audio}, f, indent=4)
 
-def labelingAudios(in_pth_audio, saving = True, annotation_base_pth = 'C:/Users/b.smadiarov/Diploma/VD-KazakhSpeech/data/annotation/'): 
+def labelingAudios(in_pth_audio, saving = True, annotation_base_pth = 'C:/Users/b.smadiarov/Diploma/VoiceDetectionForKazakhSpeech/data/annotation/'): 
     tracklist = glob(in_pth_audio)
     for audio_path in tqdm(tracklist):
         audio_path = audio_path.replace('\\', '/') # to change \ to change /

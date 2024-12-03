@@ -51,13 +51,6 @@ def merge_audio_files(input_folder, output_folder, group_size):
         output_file_path = os.path.join(output_folder, output_file_name)
         sf.write(output_file_path, combined_data, samplerate)
 
-# # Пример использования функции
-# input_folder = 'C:\\Users\\b.smadiarov\\Diploma\\VD-KazakhSpeech\\rawaudio'  # Путь к папке с аудиофайлами
-# output_folder = 'C:\\Users\\b.smadiarov\\Diploma\\VD-KazakhSpeech\\rawaudio'  # Путь для сохранения объединённых файлов
-# group_size = 2  # Укажите количество записей в группе
-
-# merge_audio_files(input_folder, output_folder, group_size)
-
 # VALIDATE DATASET
 def count_flac(tracklist):
     return sum(1 for file in tracklist if file.endswith('.flac'))
