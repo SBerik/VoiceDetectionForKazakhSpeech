@@ -15,10 +15,6 @@ Voice Detector Model based on self-attention.
 |----------|-----------|--------|----------|
 |  0.9550  |  0.9615   | 0.9444 |  0.9529  | 
 
-Used GPU: `NVIDIA GeForce RTX 4090`  
-Number of GPUs: `1`  
-CUDA version: `cu118`
-
 ## Setup
 Thing's need to change before run the command below
 - You got annotation .csv files for each audio 
@@ -54,7 +50,10 @@ python inference.py PATH_TO_SAMPLE -plot -s -t THRESHOLD -c checkpoints/NAME_OF_
 ```
 Warning: run the file `inference.py` with the trained model weights and the config file. 
 
-## Setup
+## Data
+
+The dataset used for this project is the **Kazakh Speech Corpus**, which is available at [https://issai.nu.edu.kz/kz-speech-corpus/](https://issai.nu.edu.kz/kz-speech-corpus/). This dataset consists of audio recordings in Kazakh language. The KS2 contains around 1.2k hours of high-quality transcribed data comprising over 600k utterances.
+
 Scheme of data folder:
 ```
 data/
@@ -75,3 +74,8 @@ data/
         5ed8a1c0f3ea2.flac
         5ed8a1c0f3ea2.csv
 ```
+
+## Hardware 
+Used GPU: `NVIDIA GeForce RTX 4090`  
+Number of GPUs: `1`  
+CUDA version: `cu118`
