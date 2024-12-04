@@ -30,7 +30,8 @@ class Trainer:
                     dataloader = dataloaders['valid']
                 
                 running_loss = 0.0
-                [metrics[m].reset() for m in metrics.keys()]
+                for m in metrics.keys():
+                    metrics[m].reset()
                 total_samples = len(dataloader.dataset)
                 
                 for inputs, labels in dataloader:
@@ -43,7 +44,8 @@ class Trainer:
                             loss.backward()
                             optimizer.step()
                     running_loss += loss.item() * inputs.size(0)
-                    [metrics[m].update(outputs, labels) for m in metrics.keys()]
+                    for m in metrics.keys():
+                        metrics[m].update(outputs, labels)
                 
                 epoch_loss = running_loss / total_samples
                 epoch_metrics = {m: metrics[m].compute().item() for m in metrics.keys()}
