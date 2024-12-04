@@ -15,8 +15,6 @@ torch.backends.cudnn.allow_tf32 = True
 torch.set_float32_matmul_precision('medium')
 
 def main(hparams_file):
-    # Device 
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     # Loading config file    
     cfg, ckpt_folder = load_config(hparams_file)
     # Load data 
@@ -33,7 +31,7 @@ def main(hparams_file):
     optimizer = (torch.optim.Adam if cfg['training']["optim"] == 'Adam' else torch.optim.SGD) (model.parameters(), 
                  lr=cfg['training']["lr"], weight_decay=cfg['training']["weight_decay"])
     # Metrics
-    metrics = {m: getattr(torchmetrics, m)(task='binary', average='micro').to(device) for m in ['Accuracy']}
+    metrics = {m: getattr(torchmetrics, m)(task='binary', average='micro').to(cfg['trainer']['device']) for m in ['Accuracy']}
     # Train
     Trainer(**cfg['trainer'], ckpt_folder = ckpt_folder).fit(model, dataloaders, torch.nn.BCEWithLogitsLoss(), optimizer, metrics, writer)
 
