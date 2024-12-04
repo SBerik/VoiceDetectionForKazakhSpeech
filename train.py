@@ -13,9 +13,10 @@ from dataset import *
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.set_float32_matmul_precision('medium')
-assert torch.cuda.is_available(), "CUDA is not available. Please check your GPU setup."
 
 def main(hparams_file):
+    # Device 
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     # Loading config file    
     cfg, ckpt_folder = load_config(hparams_file)
     # Load data 
