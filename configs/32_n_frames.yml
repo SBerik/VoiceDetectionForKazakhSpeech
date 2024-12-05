@@ -4,10 +4,10 @@ xp_config:
   
 data:
   data_dir: F:/ISSAI_KSC2_unpacked/vad_data_augmented
-  batch_size: 512
-  train_percent: 0.8
-  valid_percent: 0.1
-  test_percent: 0.1
+  batch_size: 1048
+  train_percent: 0.7
+  valid_percent: 0.15
+  test_percent: 0.15
   n_frames: 32
   nfft: 1048
   hop_length: 512
