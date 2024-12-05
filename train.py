@@ -6,7 +6,7 @@ from pathlib import Path
 from torch.utils.tensorboard import SummaryWriter as TensorBoard
 
 from utils.load_config import load_config 
-from utils.training import metadata_info
+from utils.training import metadata_info, configure_optimizer
 from models import VADNet 
 from dataset import *
 
@@ -16,7 +16,7 @@ torch.set_float32_matmul_precision('medium')
 
 def main(hparams_file):
     # Loading config file    
-    cfg, ckpt_folder = load_config(hparams_file)
+    cfg = load_config(hparams_file)
     # Load data 
     datamodule = VADMelDataModule(**cfg['data']).setup()
     dataloaders = {'train': datamodule.train_dataloader(), 'valid': datamodule.val_dataloader()}
@@ -25,16 +25,13 @@ def main(hparams_file):
     # Meta-data
     metadata_info(model)
     # TensorBoard
-    writer = TensorBoard(f'tb_logs/{Path(hparams_file).stem}', comment = f'{ckpt_folder}')
+    writer = TensorBoard(f'tb_logs/{Path(hparams_file).stem}', comment = f"{cfg['trainer']['ckpt_folder']}")
     # Optimizer
-    assert cfg['training']["optim"] in ['Adam', 'SGD'], "Invalid optimizer type"
-    optimizer = (torch.optim.Adam if cfg['training']["optim"] == 'Adam' else torch.optim.SGD) (model.parameters(), 
-                 lr=cfg['training']["lr"], weight_decay=cfg['training']["weight_decay"])
+    optimizer = configure_optimizer (cfg, model)
     # Metrics
     metrics = {m: getattr(torchmetrics, m)(task='binary', average='micro').to(cfg['trainer']['device']) for m in ['Accuracy']}
     # Train
-    Trainer(**cfg['trainer'], ckpt_folder = ckpt_folder).fit(model, dataloaders, torch.nn.BCEWithLogitsLoss(), optimizer, metrics, writer)
-
+    Trainer(**cfg['trainer']).fit(model, dataloaders, torch.nn.BCEWithLogitsLoss(), optimizer, metrics, writer)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
