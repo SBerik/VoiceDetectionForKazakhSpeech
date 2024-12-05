@@ -1,5 +1,12 @@
 import torch
 
+
+def configure_optimizer(cfg, model):
+    assert cfg['training']["optim"] in ['Adam', 'SGD'], "Invalid optimizer type"
+    return (torch.optim.Adam if cfg['training']["optim"] == 'Adam' else torch.optim.SGD) (model.parameters(), 
+                 lr=cfg['training']["lr"], weight_decay=cfg['training']["weight_decay"])
+
+
 def torch_logger (writer, phase, epoch, epoch_loss, epoch_metrics, metrics):
     writer.add_scalar(f'{phase}/Loss', epoch_loss, epoch)
     [writer.add_scalar(f'{phase}/{m}', epoch_metrics[m], epoch) for m in metrics.keys()]
