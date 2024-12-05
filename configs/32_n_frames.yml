@@ -39,8 +39,3 @@ trainer:
   model_name: VADNet 
   path_to_weights: './weights'
   ckpt_folder: './checkpoints/'
-
-model_checkpoint:
-  monitor: val_loss
-  filename: 'VAD-{epoch:02d}'
-  save_last: true
