@@ -27,6 +27,7 @@ trainer:
   best_weights: true
   checkpoint_interval: 5
   checkpointing: false
+  ckpt_folder: ./checkpoints/
   device: cuda
   model_name: VADNet
   num_epochs: 100

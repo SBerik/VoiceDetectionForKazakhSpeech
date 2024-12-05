@@ -27,17 +27,18 @@ model:
 
 training:
   optim: 'Adam'
-  lr: 0.01
+  lr: 0.001
   weight_decay: 0.00001
 
 trainer:
   num_epochs: 100
   device: 'cuda'
   best_weights: True
-  checkpointing: True
+  checkpointing: False
   checkpoint_interval: 5
   model_name: VADNet 
   path_to_weights: './weights'
+  ckpt_folder: './checkpoints/'
 
 model_checkpoint:
   monitor: val_loss
