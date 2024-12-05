@@ -1,6 +1,6 @@
 data:
   batch_size: 512
-  data_dir: F:/ISSAI_KSC2_unpacked/temp_vad
+  data_dir: F:/ISSAI_KSC2_unpacked/vad_data_augmented
   hop_length: 512
   n_frames: 32
   n_mels: 128
