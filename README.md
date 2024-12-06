@@ -7,7 +7,7 @@
 ## Overview
 Voice Detector Model based on self-attention. 
 <p align="center">
-  <img src="pics/vad-fig2.png" alt="Results of model output">
+  <img src="pics/CNN+SA.png" alt="Results of model output">
 </p>
 
 ## Metrics
