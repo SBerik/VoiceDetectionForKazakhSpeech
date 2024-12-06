@@ -19,7 +19,7 @@ class Trainer:
     @measure_time
     def fit(self, model, dataloaders, criterion, optimizer, metrics, writer) -> None:
         model.to(self.device)
-        min_acc = 0.0
+        min_val_loss = float('inf')
         for epoch in range(self.num_epochs):
             for phase in ['train', 'valid']:
                 if phase == 'train':
@@ -53,8 +53,8 @@ class Trainer:
                 torch_logger (writer, phase, epoch, epoch_loss, epoch_metrics, metrics)
                 p_output_log(epoch, self.num_epochs, phase, epoch_loss, epoch_metrics, metrics)
 
-                if phase == 'valid' and self.best_weights and epoch_metrics['Accuracy'] > min_acc:
-                    min_acc = epoch_metrics['Accuracy']
+                if phase == 'valid' and self.best_weights and epoch_loss < min_val_loss:
+                    min_val_loss = epoch_loss
                     save_best_weight(model, optimizer, epoch, epoch_loss, epoch_metrics, self.path_to_weights, self.model_name)
 
             if self.checkpointing and (epoch + 1) % self.checkpoint_interval == 0:
