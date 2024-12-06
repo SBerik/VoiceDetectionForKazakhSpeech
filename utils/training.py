@@ -7,17 +7,25 @@ def configure_optimizer(cfg, model):
                  lr=cfg['training']["lr"], weight_decay=cfg['training']["weight_decay"])
 
 
-def torch_logger (writer, epoch, phase, epoch_loss, epoch_metrics, metrics):
-    writer.add_scalar(f'{phase}/Loss', epoch_loss, epoch)
-    [writer.add_scalar(f'{phase}/{m}', epoch_metrics[m], epoch) for m in metrics.keys()]
+def torch_logger (writer, epoch, epoch_state):
+    writer.add_scalars('Loss', {
+        'Train': epoch_state['train']['loss'], 
+        'Validation': epoch_state['valid']['loss']
+    }, epoch)
+
+    for m in epoch_state['metrics_name']:
+        writer.add_scalars(f'{m}', {
+            'Train': epoch_state['train']['metrics'][m], 
+            'Validation': epoch_state['valid']['metrics'][m]
+        }, epoch)
 
 
-def p_output_log(num_epochs, epoch, phase, epoch_loss, epoch_metrics, metrics):
+def p_output_log(num_epochs, epoch, phase, epoch_state):
     if phase == 'train':
         print(f'Epoch {epoch+1}/{num_epochs}')
-    print(f"{phase.upper()}, Loss: {epoch_loss:.4f}, ", end="")
-    for m in metrics.keys():
-        print(f"{m}: {epoch_metrics[m]:.4f} ", end="")
+    print(f"{phase.upper()}, Loss: {epoch_state[phase]['loss']:.4f}, ", end="")
+    for m in epoch_state['metrics_name']:
+        print(f"{m}: {epoch_state[phase]['metrics'][m]:.4f} ", end="")
     print() 
     if phase == 'valid':
         print('-' * 108, '\n')
@@ -43,24 +51,39 @@ def metadata_info (model, dtype = 'float32') -> None:
     print("Size of model: {:.2f} MB, in {}".format(model_size, dtype), '\n')
 
 
-class EpochState:
+class EpochState(dict):
     '''
     Class: contains for current epoc losses and metrics 
+    __state:
+        metrics_name: [Acc, Pr, Fr]
+        'train': {
+                loss: 0.0,
+                metrics:
+                    'acc':
+                    'pr':
+                    'rc':
+        }
+        'valid': {
+                'loss': 0.0
+                metrics:
+                    'acc':
+                    'pr':
+                    'rc':
+        }
     '''
-    def __init__ (self, metrics: dict):
-        phases = ['train', 'val']
-        self.state = {phase: {'loss': float('inf')} for phase in phases}
-        for m in metrics:
-            for phase in phases:
-                self.state[phase][m] = 0.0
-                
-    def update (self, loss, phase: str, metrics_val:dict):
-        self.state[phase]['loss'] = loss
-        self.state[phase] = metrics_val
+    def __init__(self, metrics):
+        super().__init__()
+        self['metrics_name'] = list(metrics.keys())
+        for phase in ['train', 'valid']: 
+            self[phase] = {'loss': float('inf'), 'metrics': {m: 0.0 for m in self['metrics_name']}}
+
+    def update_state(self, loss, phase: str, metrics_val:dict):
+        self[phase]['loss'] = loss
+        self[phase]['metrics'] = metrics_val
 
 # def torch_logger(writer, epoch, train_loss, val_loss, train_accuracy, val_accuracy):
-#     # Объединяем train и val для Loss
+#     # Объединяем train и valid для Loss
 #     writer.add_scalars('Loss', {'Train': train_loss, 'Validation': val_loss}, epoch)
     
-#     # Объединяем train и val для Accuracy
-#     writer.add_scalars('Accuracy', {'Train': train_accuracy, 'Validation': val_accuracy}, epoch)
+#     # Объединяем train и valid для Accuracy
+#     writer.add_scalars('Accuracy',  {'Train': train_accuracy, 'Validation': val_accuracy}, epoch)
