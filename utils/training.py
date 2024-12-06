@@ -23,24 +23,24 @@ def p_output_log(epoch, num_epochs, phase, epoch_loss, epoch_metrics, metrics):
         print('-' * 108, '\n')
 
 
-def save_best_weight(model, optimizer, epoch, epoch_loss, epoch_metrics, path_to_weights, model_name):
+def save_best_weight(model, optimizer, epoch, val_loss, epoch_metrics, path_to_weights, model_name):
     torch.save({
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
-        'loss': epoch_loss,
-        'epoch acc': epoch_metrics['Accuracy'],
+        'val_loss': val_loss,
+        'val_acc': epoch_metrics['Accuracy'],
         'epoch_metrics': epoch_metrics
-    }, '{}/{}_{}_{:.4f}_{:.4f}.pt'.format(path_to_weights, model_name, epoch, epoch_loss, epoch_metrics['Accuracy']))
+    }, '{}/{}_{}_{:.4f}_{:.4f}.pt'.format(path_to_weights, model_name, epoch, val_loss, epoch_metrics['Accuracy']))
 
 
-def save_checkpoint(model, optimizer, epoch, epoch_loss, epoch_metrics, checkpoint_path, model_name):
+def save_checkpoint(model, optimizer, epoch, val_loss, epoch_metrics, checkpoint_path, model_name):
     torch.save({
         'epoch': epoch,
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict(),
-        'loss': epoch_loss,
-        'epoch acc': epoch_metrics['Accuracy'],
+        'val_loss': val_loss,
+        'val_acc': epoch_metrics['Accuracy'],
         'epoch_metrics': epoch_metrics
     }, '{}/checkpoint_{}_epoch_{}.pt'.format(checkpoint_path, model_name, epoch))
 
