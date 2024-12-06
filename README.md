@@ -20,6 +20,7 @@ Thing's need to change before run the command below
 - You got annotation .csv files for each audio 
 - Audio files in any format that can be processed by `librosa` library.
 - Audio file names must match with annotation .csv files.
+- Audio files and their annotation in the same folder
 
 Before run train and inference, setup vertiual env.
 ```
