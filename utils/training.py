@@ -1,5 +1,5 @@
 import torch
-
+from collections import defaultdict
 
 def configure_optimizer(cfg, model):
     assert cfg['training']["optim"] in ['Adam', 'SGD'], "Invalid optimizer type"
@@ -7,12 +7,12 @@ def configure_optimizer(cfg, model):
                  lr=cfg['training']["lr"], weight_decay=cfg['training']["weight_decay"])
 
 
-def torch_logger (writer, phase, epoch, epoch_loss, epoch_metrics, metrics):
+def torch_logger (writer, epoch, phase, epoch_loss, epoch_metrics, metrics):
     writer.add_scalar(f'{phase}/Loss', epoch_loss, epoch)
     [writer.add_scalar(f'{phase}/{m}', epoch_metrics[m], epoch) for m in metrics.keys()]
 
 
-def p_output_log(epoch, num_epochs, phase, epoch_loss, epoch_metrics, metrics):
+def p_output_log(num_epochs, epoch, phase, epoch_loss, epoch_metrics, metrics):
     if phase == 'train':
         print(f'Epoch {epoch+1}/{num_epochs}')
     print(f"{phase.upper()}, Loss: {epoch_loss:.4f}, ", end="")
@@ -21,28 +21,6 @@ def p_output_log(epoch, num_epochs, phase, epoch_loss, epoch_metrics, metrics):
     print() 
     if phase == 'valid':
         print('-' * 108, '\n')
-
-
-def save_best_weight(model, optimizer, epoch, val_loss, epoch_metrics, path_to_weights, model_name):
-    torch.save({
-        'epoch': epoch,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'val_loss': val_loss,
-        'val_acc': epoch_metrics['Accuracy'],
-        'epoch_metrics': epoch_metrics
-    }, '{}/{}_{}_{:.4f}_{:.4f}.pt'.format(path_to_weights, model_name, epoch, val_loss, epoch_metrics['Accuracy']))
-
-
-def save_checkpoint(model, optimizer, epoch, val_loss, epoch_metrics, checkpoint_path, model_name):
-    torch.save({
-        'epoch': epoch,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'val_loss': val_loss,
-        'val_acc': epoch_metrics['Accuracy'],
-        'epoch_metrics': epoch_metrics
-    }, '{}/checkpoint_{}_epoch_{}.pt'.format(checkpoint_path, model_name, epoch))
 
 
 def getNumParams (model):
@@ -63,3 +41,26 @@ def metadata_info (model, dtype = 'float32') -> None:
     
     print(f"Trainable parametrs: {num_params}")
     print("Size of model: {:.2f} MB, in {}".format(model_size, dtype), '\n')
+
+
+class EpochState:
+    '''
+    Class: contains for current epoc losses and metrics 
+    '''
+    def __init__ (self, metrics: dict):
+        phases = ['train', 'val']
+        self.state = {phase: {'loss': float('inf')} for phase in phases}
+        for m in metrics:
+            for phase in phases:
+                self.state[phase][m] = 0.0
+                
+    def update (self, loss, phase: str, metrics_val:dict):
+        self.state[phase]['loss'] = loss
+        self.state[phase] = metrics_val
+
+# def torch_logger(writer, epoch, train_loss, val_loss, train_accuracy, val_accuracy):
+#     # Объединяем train и val для Loss
+#     writer.add_scalars('Loss', {'Train': train_loss, 'Validation': val_loss}, epoch)
+    
+#     # Объединяем train и val для Accuracy
+#     writer.add_scalars('Accuracy', {'Train': train_accuracy, 'Validation': val_accuracy}, epoch)
