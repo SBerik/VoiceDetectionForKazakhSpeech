@@ -13,7 +13,7 @@ Voice Detector Model based on self-attention.
 ## Metrics
 | Accuracy | Precision | Recall | F1 Score |
 |----------|-----------|--------|----------|
-|  0.9850  |  0.9915   | 0.9844 |  0.9829  | 
+|  0.9550  |  0.9615   | 0.9544 |  0.9529  | 
 
 ## Setup
 Thing's need to change before run the command below
