@@ -35,7 +35,7 @@ trainer:
   device: 'cuda'
   best_weights: True
   checkpointing: True
-  checkpoint_interval: 2
+  checkpoint_interval: 5
   model_name: VADNet 
   path_to_weights: './weights'
   ckpt_folder: './checkpoints/'
