@@ -7,13 +7,13 @@
 ## Overview
 Voice Detector Model based on self-attention. 
 <p align="center">
-  <img src="pics/CNN+SA.png" alt="Results of model output">
+  <img src="pics/SELF-ATTEN.png" alt="Results of model output">
 </p>
 
 ## Metrics
 | Accuracy | Precision | Recall | F1 Score |
 |----------|-----------|--------|----------|
-|  0.9550  |  0.9615   | 0.9544 |  0.9529  | 
+|  0.9883  |  0.9934   | 0.9859 |  0.9896  | 
 
 ## Setup
 Thing's need to change before run the command below
