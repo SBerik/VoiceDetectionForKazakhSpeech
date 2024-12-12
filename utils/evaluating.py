@@ -33,7 +33,7 @@ def plotly_plot_roc (fprs, tprs, auc_value, desire_fr_val_i = None, desire_tr_va
     return fig
 
 
-def save_graph_tb_log_metrics(first_csv_path, second_csv_path, name_ox, name_oy, pth_save = '../pics/metrics_plot.png'):
+def save_graph_tb_log_metrics(first_csv_path, second_csv_path, name_ox, name_oy, loc = 'lower right', pth_save = '../pics/metrics_plot.png'):
     """
     Builds a plot of metric dependencies from two CSV files and saves the image.
     Parameters:
@@ -53,7 +53,7 @@ def save_graph_tb_log_metrics(first_csv_path, second_csv_path, name_ox, name_oy,
     plt.plot(epochs_val, values_val, marker='o', linestyle='-', color='blue', label=f"Validation {name_oy}")
     plt.xlabel(name_ox)
     plt.ylabel(name_oy)
-    plt.legend(loc='lower right') 
+    plt.legend(loc=loc) 
     plt.grid(True)
     plt.savefig(pth_save, dpi=300)
     print(f"График сохранён в {pth_save}")
