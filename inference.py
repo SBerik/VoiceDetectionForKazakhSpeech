@@ -61,7 +61,7 @@ class VADPredictor(object):
         mel_cpu = mel.cpu().numpy()
         plt.pcolormesh(mel_cpu[0], cmap='viridis', alpha=0.6)
         plt.colorbar(label="Mel Spectrogram (log-scaled)")
-        plt.title("Voice Detection Result")
+        # plt.title("Voice Detection Result")
         plt.xlabel("Time")
         plt.ylabel("Frequency")
         plt.legend()
