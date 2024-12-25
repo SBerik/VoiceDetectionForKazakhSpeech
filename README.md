@@ -24,30 +24,30 @@ Thing's need to change before run the command below
 
 Before run train and inference, setup vertiual env.
 ```
-mkdir VoiceDetectionForKazakhSpeech
-python3 -m venv .venv 
+$ mkdir VoiceDetectionForKazakhSpeech
+$ python3 -m venv .venv 
 ```
 For Linux (Ubuntu):
 ```
-source .venv/bin/activate
+$ source .venv/bin/activate
 ```
 For Window: 
 ```
-.\.venv\Scripts\activate
+$ .\.venv\Scripts\activate
 ```
 Review requirements.txt and then install it:
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 To run `train.py`. Before running: review the config.yml files
 ```
-python train.py -p ./configs/NAME_OF_YOUR_CONFIG_FILE.yml
+$ python3 train.py -p ./configs/NAME_OF_YOUR_CONFIG_FILE.yml
 ```
 Warining: Be careful where you run the script
 
 To run `inference.py`
 ```
-python inference.py PATH_TO_SAMPLE -plot -s -t THRESHOLD -c checkpoints/NAME_OF_YOUR_CONFIG_FILE -w weights/WEIGHT_FILE_NAME
+$ python3 inference.py PATH_TO_SAMPLE -plot -s -t THRESHOLD -c checkpoints/NAME_OF_YOUR_CONFIG_FILE -w weights/WEIGHT_FILE_NAME
 ```
 Warning: run the file `inference.py` with the trained model weights and the config file. 
 
