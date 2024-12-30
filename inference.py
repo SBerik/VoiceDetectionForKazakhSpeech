@@ -82,7 +82,7 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--save_result', action='store_true', default=False, help='Save spectogram and model predections')
     parser.add_argument('-t', '--threshold', type=float, default=None, help='threshold value')
     parser.add_argument('-c', '--ckpt_folder', default='./checkpoints/128_mels', help='Path to model checkpoint')
-    parser.add_argument('-w', '--weight_folder', default='./weights/', help='Path to model checkpoint')
+    parser.add_argument('-w', '--weight_folder', default='./weights/VADNet_30_0.0281_0.9889.pt', help='Path to model checkpoint')
     args = parser.parse_args()
     
     predictor = VADPredictor(ckpt_folder=args.ckpt_folder, weight_folder = args.weight_folder, device='cuda')
