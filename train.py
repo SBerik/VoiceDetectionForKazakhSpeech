@@ -8,7 +8,7 @@ from torch.utils.tensorboard import SummaryWriter as TensorBoard
 from utils.load_config import load_config 
 from utils.training import metadata_info, configure_optimizer
 from models import VADNet 
-from dataset import *
+from data.dataset import VADMelDataModule
 
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
