@@ -24,7 +24,7 @@ Thing's need to change before run the command below
 
 Before run train and inference, setup vertiual env.
 ```
-$ mkdir VoiceDetectionForKazakhSpeech
+$ git clone https://github.com/SBerik/VoiceDetectionForKazakhSpeech.git
 $ python3 -m venv .venv 
 ```
 For Linux (Ubuntu):
@@ -78,4 +78,5 @@ data/
 ## Hardware 
 Used GPU: `NVIDIA GeForce RTX 4090`  
 Number of GPUs: `1`  
-CUDA version: `cu118`
+CUDA version: `cu118`  
+Python version: `Python 3.9.0`
