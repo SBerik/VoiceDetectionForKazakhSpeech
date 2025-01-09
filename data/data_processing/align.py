@@ -1,17 +1,18 @@
-from energy_vad import get_non_speech
+import os
+import re
+import random
+
 import soundfile as sf 
 from tqdm import tqdm
-import os
 import numpy as np
-from IPython.display import clear_output
-import time
 import librosa
-import re
-from label import custom_get_df_from_json
 import pandas as pd
 
-import random 
+from energy_vad import get_non_speech
+from label import custom_get_df_from_json
+ 
 random.seed(42)
+
 
 def __reconstruct_signal(signal, vad, hop_len):
     reconstructed_signal = []
@@ -23,7 +24,7 @@ def __reconstruct_signal(signal, vad, hop_len):
 
 def custom_create_noise_samples (tracklist, where_to_save, seeed, total_duration=2995125):
     sum_durations = 0
-    i = 0 # Это нужно что бы повторные файлы содержали разные имена но начинка была одинакова
+    i = 0 
     for t in tqdm(tracklist):
         t = t.replace('\\', '/')
         signal, vad = get_non_speech(t)
@@ -39,16 +40,11 @@ def custom_create_noise_samples (tracklist, where_to_save, seeed, total_duration
 
 
 def add_noise_to_track(audio_path, json_sets, csv_sets, raw_base_path, path_to_save, coeff=3):
-    # get audio
     signal, sr = librosa.load(audio_path, sr=16000)
-    # get name 
     name_with_extension = os.path.basename(audio_path)
-    # get postfix
     postfix = re.sub(r'.*ISSAI_KSC2', '', audio_path)
     json_file = json_sets + postfix.replace('.flac', '.json')
-    # get non-speech times 
     df = custom_get_df_from_json(json_file, raw_base_path)
-    # Check for empty non-speech segments
     time_indices = list(df[df.speech == 0].index)
     if not time_indices: 
         return None, None

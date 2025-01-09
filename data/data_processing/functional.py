@@ -1,17 +1,24 @@
 import os
+import re
+from collections import defaultdict
+
 import soundfile as sf
 import numpy as np
-import librosa
-from energy_vad import read_wav # !!! warning !!!!
 import matplotlib.pyplot as plt
-import re
 from tqdm import tqdm
+import pandas as pd
+from glob import glob
+
+from energy_vad import read_wav
+
 
 def get_counts_with_p(files, pattern):
     return sum(1 for f in files if f.endswith(f'.{pattern}'))
 
+
 def get_files_with_p(files, pattern):
     return [f for f in files if f.endswith(f'.{pattern}')]
+
 
 def getPlot (time_frame, s, fs, d): 
     min_length = min(len(time_frame), len(d))
@@ -21,10 +28,8 @@ def getPlot (time_frame, s, fs, d):
     plt.plot(time_frame, d, color = 'red')
     plt.show()
 
+
 def merge_audio_files(input_folder, output_folder, group_size):
-    '''
-    Если аудиозаписей нечетное количество то оставшиеся мы группируем 
-    '''
     audio_files = get_files(input_folder)
     # audio_files.sort() 
     os.makedirs(output_folder, exist_ok=True)
@@ -51,9 +56,10 @@ def merge_audio_files(input_folder, output_folder, group_size):
         output_file_path = os.path.join(output_folder, output_file_name)
         sf.write(output_file_path, combined_data, samplerate)
 
-# VALIDATE DATASET
+
 def count_flac(tracklist):
     return sum(1 for file in tracklist if file.endswith('.flac'))
+
 
 def count_duplicates(flac_files):
     used = set()
@@ -64,6 +70,7 @@ def count_duplicates(flac_files):
             duplicates += 1
         used.add(name_without_ext)
     return duplicates
+
 
 def count_duplicates_between_folders(flac_files):
     def extractInfo(file):
@@ -81,11 +88,13 @@ def count_duplicates_between_folders(flac_files):
         used[name_without_ext].append((file, label, typee))
     return duplicates
 
+
 def getDoubleExt(file_list):
-    pattern = re.compile(r'(.+)\.flac\.flac$')  # Ищем именно .flac.flac
+    pattern = re.compile(r'(.+)\.flac\.flac$') 
     double_ext_files = [file for file in file_list if pattern.match(file)]
     double_ext_files = sorted(double_ext_files)
     return double_ext_files
+
 
 def extract_filenames(file_paths):
     pattern = re.compile(r'([^\\/]+)(?=\.\w+(\.\w+)*$)')
@@ -96,23 +105,19 @@ def extract_filenames(file_paths):
             filenames.append(match.group(1).replace('.flac', ''))
     return filenames
     
+
 def count_double_ext_matches(file_list, double_ext_files):
     double_ext_fs_names = set(extract_filenames (double_ext_files))
     count = 0
     res = []
     for file_pt in tqdm(file_list):
         file_name = os.path.splitext(os.path.basename(file_pt.replace('\\', '/')))[0]   
-
-        # os.path.splitext(os.path.basename('F:/ISSAI_KSC2_unpacked/ISSAI_KSC2/Dev/talkshow/415465.flac.flac'.replace('\\', '/')))[0]  
-        # '415465.flac'
-        # os.path.splitext(os.path.basename('F:/ISSAI_KSC2_unpacked/ISSAI_KSC2/Dev/talkshow/415465.flac'.replace('\\', '/')))[0]    
-        # '415465'
-        
         if file_name in double_ext_fs_names:
             count += 1
             res.append(file_name)
             
     return count, res
+
 
 def rename_double_ext_audios(audios_with_double_ext) -> None:
     for file_path in audios_with_double_ext:
@@ -123,6 +128,7 @@ def rename_double_ext_audios(audios_with_double_ext) -> None:
             new_file_name = file_name + '.flac' 
             new_file_path = dir_name + '/' + new_file_name
             os.rename(file_path, new_file_path)
+
 
 def process_dataframe(dataframe):
     print("Count of intervals: ", dataframe.shape[0]) 
@@ -144,11 +150,11 @@ def get_total_time_duration(flac_files):
             total_duration += duration
     return total_duration
 
-def findJsonPare(flac_files, json_files, jsons_path): 
-    # json_paths: paths['KS2_annotation_json']
-    flac_files = glob (glob_paths['KS2_raw']) 
+
+def findJsonPare(flac_files, json_files, jsons_path, KS2_raw, KS2_jsons): 
+    flac_files = glob (KS2_raw) 
     flac_files = [t.replace('\\', '/') for t in flac_files]
-    json_files = glob (glob_paths['KS2_jsons']) 
+    json_files = glob (KS2_jsons) 
     json_files = [x.replace('\\', '/') for x in json_files]
     missing_json_files = [] 
     json_set = set(json_files) 
@@ -160,6 +166,7 @@ def findJsonPare(flac_files, json_files, jsons_path):
             missing_json_files.append(t) 
     return missing_json_files
 
+
 def mapper_from_json_to_flac (json_files, base_path):
     res = []
     for json in json_files:
@@ -168,15 +175,17 @@ def mapper_from_json_to_flac (json_files, base_path):
         res.append(flac_file)
     return res
 
+
 def delete_files(file_list):
     for file_path in file_list:
         if os.path.exists(file_path):
             try:
                 os.remove(file_path)
             except Exception as e:
-                print(f"Ошибка при удалении {file_path}: {e}")
+                print(f"Error while deleting {file_path}: {e}")
         else:
-            print(f"Файл {file_path} не найден.")
+            print(f"There are is no {file_path} name.")
+
 
 def getSamplesWithOneClassesInTheSameFolder (tracklist):        
     def isSingleClassSample(t) -> bool:

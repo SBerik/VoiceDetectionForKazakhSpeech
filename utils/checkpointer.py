@@ -1,5 +1,6 @@
 import torch
 
+
 class Checkpointer:
     def __init__(self, model_name, path_to_weights, checkpoint_path):
         self.model_name = model_name

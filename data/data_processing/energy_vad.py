@@ -54,10 +54,6 @@ def deframe(x_framed, win_len, hop_len):
     return x_samples
 
 
-import librosa
-import numpy as np
-
-
 ##Function definitions:
 def vad_help():
     """Voice Activity Detection (VAD) tool.

@@ -1,6 +1,7 @@
 import pandas as pd
 import torch
 
+
 def get_frame_targets(audio_path:str, total_frames:int, hop_length:int, sr:int=16000)->torch.Tensor:
     """Aligns groundtruth annotation in seconds to the spectrogram time axis.
        Returns a binary Tensor array of the size of the spectrogram length.

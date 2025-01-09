@@ -1,5 +1,6 @@
 import time as t
 
+
 def format_time(seconds):
     """Format hour:min:seconds"""
     hours = int(seconds // 3600)

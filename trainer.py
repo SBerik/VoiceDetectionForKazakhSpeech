@@ -1,8 +1,11 @@
+import os
+
 import torch
+
 from utils.measure_time import measure_time
 from utils.training import *
 from utils.checkpointer import Checkpointer
-import os
+
 
 class Trainer:
     def __init__(self, num_epochs = 100, device='cuda', best_weights = False, checkpointing = False, 

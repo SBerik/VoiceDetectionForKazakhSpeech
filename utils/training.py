@@ -1,5 +1,5 @@
 import torch
-from collections import defaultdict
+
 
 def configure_optimizer(cfg, model):
     assert cfg['training']["optim"] in ['Adam', 'SGD'], "Invalid optimizer type"

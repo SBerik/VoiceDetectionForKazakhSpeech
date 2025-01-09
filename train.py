@@ -1,10 +1,11 @@
-import torch
-import torchmetrics
-from trainer import Trainer 
 import argparse
 from pathlib import Path
+
+import torch
+import torchmetrics 
 from torch.utils.tensorboard import SummaryWriter as TensorBoard
 
+from trainer import Trainer
 from utils.load_config import load_config 
 from utils.training import metadata_info, configure_optimizer
 from models import VADNet 
@@ -13,6 +14,7 @@ from data.dataset import VADMelDataModule
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.set_float32_matmul_precision('medium')
+
 
 def main(hparams_file):
     # Loading config file    

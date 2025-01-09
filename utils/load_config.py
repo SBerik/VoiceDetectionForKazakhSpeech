@@ -2,6 +2,7 @@ import yaml
 import os 
 from pathlib import Path
 
+
 def load_config (hparams_file):
     cfg = yaml.load(open(hparams_file), Loader=yaml.FullLoader)
     ckpt_folder = os.path.join('./checkpoints', Path(hparams_file).stem).replace('\\', '/')

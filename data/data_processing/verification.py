@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import torchaudio
 import pandas as pd 
 
+
 def get_gt_plot_waveform(signal, df):
     gt_plot = np.zeros_like(signal)
     cur_sample = int(df.iloc[0].start_time * 16000)
@@ -14,6 +15,7 @@ def get_gt_plot_waveform(signal, df):
     plt.figure(figsize=(15, 5))
     plt.plot(gt_plot)
     plt.plot(signal)
+
 
 def get_plot_spectro(audio_path, melspec, hop_length):
     waveform, sr = torchaudio.load(audio_path)
