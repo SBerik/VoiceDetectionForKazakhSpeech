@@ -25,6 +25,7 @@ Thing's need to change before run the command below
 Before run train and inference, setup vertiual env.
 ```
 $ git clone https://github.com/SBerik/VoiceDetectionForKazakhSpeech.git
+$ cd ./VoiceDetectionForKazakhSpeech
 $ python3 -m venv .venv 
 ```
 For Linux (Ubuntu):
